@@ -90,6 +90,14 @@ public class CompareCoverageAction extends Recorder implements SimpleBuildStep {
         return scmVars;
     }
 
+    public String getSonarLogin() {
+        return sonarLogin;
+    }
+
+    public String getSonarPassword() {
+        return sonarPassword;
+    }
+
     @DataBoundSetter
     public void setScmVars(Map<String, String> scmVars) {
         this.scmVars = scmVars;
