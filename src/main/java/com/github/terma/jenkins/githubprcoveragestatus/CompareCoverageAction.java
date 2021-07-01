@@ -142,7 +142,6 @@ public class CompareCoverageAction extends Recorder implements SimpleBuildStep {
         buildLog.println(BUILD_LOG_PREFIX + "getting master coverage...");
         MasterCoverageRepository masterCoverageRepository = ServiceRegistry
                 .getMasterCoverageRepository(buildLog, sonarLogin, sonarPassword);
-        final GHRepository gitHubRepository = ServiceRegistry.getPullRequestRepository().getGitHubRepository(gitUrl);
         final float masterCoverage = masterCoverageRepository.get(gitUrl);
         buildLog.println(BUILD_LOG_PREFIX + "master coverage: " + masterCoverage);
 
@@ -158,6 +157,8 @@ public class CompareCoverageAction extends Recorder implements SimpleBuildStep {
 
         String jenkinsUrl = settingsRepository.getJenkinsUrl();
         if (jenkinsUrl == null) jenkinsUrl = Utils.getJenkinsUrlFromBuildUrl(buildUrl);
+
+        final GHRepository gitHubRepository = ServiceRegistry.getPullRequestRepository().getGitHubRepository(gitUrl);
 
         if ("comment".equalsIgnoreCase(publishResultAs)) {
             buildLog.println(BUILD_LOG_PREFIX + "publishing result as comment");
