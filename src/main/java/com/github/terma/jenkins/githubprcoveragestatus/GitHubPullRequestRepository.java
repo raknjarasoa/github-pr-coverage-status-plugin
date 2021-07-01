@@ -38,15 +38,15 @@ public class GitHubPullRequestRepository implements PullRequestRepository {
     public GHRepository getGitHubRepository(final String gitHubUrl) throws IOException {
         GitHub gitHub = getGitHub();
 
-        // try {
-        //     if (gitHub.getRateLimit().remaining == 0) {
-        //         throw new IOException("Exceeded rate limit for repository");
-        //     }
-        // } catch (FileNotFoundException ex) {
-        //     throw new IOException("Rate limit API not found.");
-        // } catch (IOException ex) {
-        //     throw new IOException("Error while accessing rate limit API", ex);
-        // }
+        try {
+            if (gitHub.getRateLimit().remaining == 0) {
+                throw new IOException("Exceeded rate limit for repository");
+            }
+        } catch (FileNotFoundException ex) {
+            throw new IOException("Rate limit API not found.");
+        } catch (IOException ex) {
+            throw new IOException("Error while accessing rate limit API", ex);
+        }
 
         final String userRepo = GitUtils.getUserRepo(gitHubUrl);
 
